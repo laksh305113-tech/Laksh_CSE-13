@@ -4,7 +4,7 @@ function reverseString(str) {
     return str.split('').reverse().join('');
 }
 
-// Example Test Cases
+// Example Test Case
 console.log(reverseString("hello"));      
 console.log(reverseString("javascript"));
 console.log(reverseString("OpenAI"));
