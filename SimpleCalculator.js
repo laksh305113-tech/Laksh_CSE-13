@@ -1,4 +1,4 @@
-// Simple Calculator using Functions
+// Simple Calculator using Function
 
 function add(a, b) {
     return a + b;
