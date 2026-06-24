@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Marks Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Marks, Average & Grade Calculator</h1>
+
+    <form id="marksForm" class="marks-form">
+      <div class="field">
+        <label for="subject1">Subject 1</label>
+        <input type="number" id="subject1" name="subject1" min="0" max="100" required />
+      </div>
+      <div class="field">
+        <label for="subject2">Subject 2</label>
+        <input type="number" id="subject2" name="subject2" min="0" max="100" required />
+      </div>
+      <div class="field">
+        <label for="subject3">Subject 3</label>
+        <input type="number" id="subject3" name="subject3" min="0" max="100" required />
+      </div>
+      <div class="field">
+        <label for="subject4">Subject 4</label>
+        <input type="number" id="subject4" name="subject4" min="0" max="100" required />
+      </div>
+      <div class="field">
+        <label for="subject5">Subject 5</label>
+        <input type="number" id="subject5" name="subject5" min="0" max="100" required />
+      </div>
+
+      <button type="submit">Calculate</button>
+    </form>
+
+    <section id="result" class="result hidden">
+      <h2>Result</h2>
+      <p><strong>Total Marks:</strong> <span id="totalMarks">0</span></p>
+      <p><strong>Average Marks:</strong> <span id="averageMarks">0</span></p>
+      <p><strong>Grade:</strong> <span id="grade">N/A</span></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
