@@ -1,0 +1,108 @@
+.hero {
+  background: var(--navy);
+  color: white;
+  padding: 4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  min-height: 420px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 320px; height: 320px;
+  background: rgba(245,166,35,0.08);
+  border-radius: 50%;
+}
+.hero-content { max-width: 480px; }
+.hero-tag {
+  font-size: 0.88rem;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.hero-title {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: white;
+  margin-bottom: 1rem;
+}
+.hero-sub {
+  color: rgba(255,255,255,0.65);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-visual {
+  position: relative;
+  width: 220px; height: 220px;
+  flex-shrink: 0;
+}
+.hero-blob {
+  width: 180px; height: 180px;
+  background: rgba(245,166,35,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(245,166,35,0.3);
+  margin: 20px auto 0;
+}
+.hero-emoji { font-size: 5rem; }
+.stat-card {
+  position: absolute;
+  background: white;
+  color: var(--navy);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stat-card span { font-weight: 700; font-size: 1rem; color: var(--navy); }
+.stat-card small { color: var(--gray); font-size: 0.75rem; }
+.sc1 { top: 0; right: 10px; }
+.sc2 { bottom: 30px; right: 0; }
+.sc3 { bottom: 10px; left: 10px; }
+
+.cats-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.cat-chip {
+  background: white;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.18s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.cat-chip:hover {
+  background: var(--navy);
+  color: var(--gold);
+  border-color: var(--navy);
+  transform: translateY(-2px);
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}

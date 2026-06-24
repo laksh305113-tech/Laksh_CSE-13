@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --navy: #0f1923;
+  --navy-light: #1a2b3c;
+  --gold: #f5a623;
+  --gold-light: #ffd07b;
+  --cream: #faf8f3;
+  --white: #ffffff;
+  --gray: #6b7280;
+  --light: #f3f4f6;
+  --danger: #e53e3e;
+  --success: #38a169;
+  --shadow: 0 4px 24px rgba(0,0,0,0.10);
+  --radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--navy);
+  min-height: 100vh;
+}
+
+.app-root { min-height: 100vh; display: flex; flex-direction: column; }
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-gold:active { transform: scale(0.98); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  padding: 9px 22px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-outline:hover { background: var(--navy); color: white; }
+
+.badge {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 700;
+  border-radius: 50%;
+  width: 20px; height: 20px;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  font-size: 12px;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  flex: 1;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
+  color: var(--navy);
+}
+.section-sub {
+  color: var(--gray);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+input, select {
+  font-family: 'DM Sans', sans-serif;
+}

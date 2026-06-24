@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMAZON — E-Commerce Project | Laksh Sharma</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+:root{--navy:#0f1923;--navy2:#1a2b3c;--gold:#f5a623;--gold2:#ffd07b;--cream:#faf8f3;--gray:#6b7280;--success:#38a169;--danger:#e53e3e;--shadow:0 4px 24px rgba(0,0,0,.10);--r:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy)}
+h1,h2,h3,h4{font-family:'Playfair Display',serif}
+/* NAV */
+.navbar-custom{background:var(--navy);padding:.75rem 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:999;box-shadow:0 2px 16px rgba(0,0,0,.2)}
+.brand{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.5rem;font-weight:700;cursor:pointer;flex-shrink:0;text-decoration:none}
+.nav-search-wrap{flex:1;display:flex;align-items:center;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);border-radius:8px;padding:0 12px;gap:8px;transition:.2s}
+.nav-search-wrap:focus-within{border-color:var(--gold)}
+.nav-search-wrap input{background:transparent;border:none;outline:none;color:#fff;font-size:.95rem;padding:10px 0;width:100%;font-family:'DM Sans',sans-serif}
+.nav-search-wrap input::placeholder{color:rgba(255,255,255,.4)}
+.nav-links{display:flex;align-items:center;gap:.25rem;flex-shrink:0}
+.nav-btn{background:transparent;color:rgba(255,255,255,.75);border:none;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;padding:8px 14px;border-radius:7px;cursor:pointer;transition:.18s}
+.nav-btn:hover,.nav-btn.active{background:rgba(245,166,35,.18);color:var(--gold)}
+.cart-btn{background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-size:1.1rem;padding:8px 14px;cursor:pointer;position:relative;transition:.18s}
+.cart-btn:hover{background:var(--gold2)}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--danger);color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif}
+/* PAGES */
+.page{display:none}.page.active{display:block}
+/* HERO */
+.hero{background:var(--navy);color:#fff;padding:4rem 2rem;display:flex;align-items:center;justify-content:center;gap:4rem;min-height:400px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;background:rgba(245,166,35,.07);border-radius:50%}
+.hero-content{max-width:500px;z-index:1}
+.hero-tag{font-size:.85rem;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:.75rem}
+.hero-title{font-size:3rem;font-weight:900;line-height:1.1;margin-bottom:1rem}
+.hero-sub{color:rgba(255,255,255,.6);font-size:1rem;line-height:1.7;margin-bottom:1.75rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-visual{position:relative;width:220px;height:220px;flex-shrink:0;z-index:1}
+.hero-blob{width:180px;height:180px;background:rgba(245,166,35,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(245,166,35,.3);margin:20px auto 0;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-emoji{font-size:5rem}
+.stat-card{position:absolute;background:#fff;color:var(--navy);border-radius:10px;padding:8px 14px;font-size:.85rem;box-shadow:0 4px 16px rgba(0,0,0,.15);display:flex;flex-direction:column;align-items:center}
+.stat-card span{font-weight:700;font-size:1rem}.stat-card small{color:var(--gray);font-size:.75rem}
+.sc1{top:0;right:10px}.sc2{bottom:30px;right:0}.sc3{bottom:10px;left:10px}
+/* BUTTONS */
+.btn-gold{background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.95rem;padding:10px 22px;cursor:pointer;transition:.2s}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy);border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;padding:9px 22px;cursor:pointer;transition:.2s}
+.btn-outline:hover{background:var(--navy);color:#fff}
+/* CATS */
+.cats-row{display:flex;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.cat-chip{background:#fff;border:1.5px solid #e5e7eb;border-radius:30px;padding:10px 20px;font-size:.9rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:7px;transition:.18s;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.cat-chip:hover{background:var(--navy);color:var(--gold);border-color:var(--navy);transform:translateY(-2px)}
+/* PRODUCTS GRID */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.5rem}
+.product-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:.22s}
+.product-card:hover{transform:translateY(-5px);box-shadow:0 12px 36px rgba(0,0,0,.13)}
+.pimg-wrap{position:relative;height:200px;background:#f3f4f6;overflow:hidden}
+.pimg-wrap img{width:100%;height:100%;object-fit:cover;transition:.35s}
+.product-card:hover .pimg-wrap img{transform:scale(1.05)}
+.pcat{position:absolute;top:10px;left:10px;background:var(--navy);color:var(--gold);font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.pinfo{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;flex:1}
+.pname{font-size:1rem;font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:.3rem;line-height:1.3}
+.pdesc{font-size:.83rem;color:var(--gray);margin-bottom:.75rem;flex:1;line-height:1.5}
+.pfooter{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem}
+.pprice{font-size:1.2rem;font-weight:700}
+.prating{color:var(--gold);font-size:.85rem}
+.btn-add{width:100%;padding:10px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;transition:.2s}
+.btn-add:hover{background:var(--navy2)}
+.btn-add.added{background:var(--success)}
+/* FILTERS */
+.filters-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+.cat-filters{display:flex;gap:.5rem;flex-wrap:wrap}
+.cfbtn{background:#fff;border:1.5px solid #e5e7eb;border-radius:20px;padding:7px 16px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;transition:.18s}
+.cfbtn:hover{border-color:var(--navy);color:var(--navy)}
+.cfbtn.active{background:var(--navy);color:var(--gold);border-color:var(--navy)}
+.sort-sel{background:#fff;border:1.5px solid #e5e7eb;border-radius:8px;padding:8px 14px;font-size:.9rem;cursor:pointer;outline:none;font-family:'DM Sans',sans-serif}
+/* CART */
+.cart-layout{display:grid;grid-template-columns:1fr 320px;gap:2rem;align-items:flex-start}
+.cart-items{display:flex;flex-direction:column;gap:1rem}
+.cart-item{background:#fff;border-radius:var(--r);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;box-shadow:var(--shadow)}
+.cimg{width:80px;height:80px;object-fit:cover;border-radius:8px;background:#f3f4f6;flex-shrink:0}
+.cinfo{flex:1}
+.cinfo h4{font-size:.95rem;font-family:'Playfair Display',serif;margin-bottom:3px}
+.ccat{font-size:.78rem;color:var(--gray);text-transform:uppercase;letter-spacing:.5px}
+.cprize{font-size:.9rem;font-weight:600;margin-top:4px}
+.qty-ctrl{display:flex;align-items:center;border:1.5px solid #e5e7eb;border-radius:8px;overflow:hidden}
+.qty-ctrl button{background:#f3f4f6;border:none;width:34px;height:34px;font-size:1.1rem;cursor:pointer;font-weight:700;transition:.15s}
+.qty-ctrl button:hover{background:#e5e7eb}
+.qty-ctrl span{width:36px;text-align:center;font-weight:600;font-size:.95rem}
+.ctotal{font-weight:700;font-size:1rem;min-width:80px;text-align:right}
+.rm-btn{background:transparent;border:none;color:var(--gray);font-size:.95rem;cursor:pointer;padding:6px;border-radius:5px;transition:.15s}
+.rm-btn:hover{background:#fee2e2;color:var(--danger)}
+.cart-summary{background:#fff;border-radius:var(--r);padding:1.5rem;box-shadow:var(--shadow);position:sticky;top:80px}
+.cart-summary h3{font-size:1.2rem;margin-bottom:1.25rem}
+.srow{display:flex;justify-content:space-between;font-size:.92rem;margin-bottom:.75rem;color:var(--gray)}
+.srow.total{font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:1.25rem}
+.free{color:var(--success);font-weight:600}
+.disc{color:var(--success);font-weight:600}
+.checkout-btn{width:100%;padding:13px;font-size:1rem}
+/* FORM */
+.reg-wrap{display:grid;grid-template-columns:1fr 340px;gap:3rem;align-items:flex-start}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-size:.88rem;font-weight:600;color:var(--navy)}
+.fg input{padding:11px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:.95rem;outline:none;transition:.18s;font-family:'DM Sans',sans-serif}
+.fg input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(15,25,35,.07)}
+.fg.err input{border-color:var(--danger)}
+.err-msg{font-size:.8rem;color:var(--danger);font-weight:500}
+.reg-info{background:var(--navy);color:#fff;border-radius:var(--r);padding:2rem}
+.reg-info h3{font-size:1.3rem;color:var(--gold);margin-bottom:1.5rem}
+.perk{display:flex;align-items:flex-start;gap:14px;margin-bottom:1.2rem}
+.perk-icon{font-size:1.5rem;flex-shrink:0}
+.perk strong{display:block;font-size:.95rem;margin-bottom:2px}
+.perk p{font-size:.82rem;color:rgba(255,255,255,.55)}
+/* SUCCESS */
+.reg-success{background:#fff;border-radius:var(--r);padding:3rem 2.5rem;text-align:center;max-width:480px;margin:3rem auto;box-shadow:var(--shadow)}
+.reg-success h2{font-size:1.8rem;margin-bottom:.6rem}
+.snote{font-size:.82rem;background:#f3f4f6;border-radius:7px;padding:10px 14px;margin:1rem 0 1.5rem;color:var(--navy)}
+.snote code{color:#e91e8c}
+/* SECTION */
+.section-wrap{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+.section-title{font-size:2rem;margin-bottom:.4rem}
+.section-sub{color:var(--gray);font-size:1rem;margin-bottom:2rem}
+hr.sdiv{border:none;border-top:1.5px solid #e5e7eb;margin:.5rem 0 1rem}
+/* EMPTY */
+.empty-state{text-align:center;padding:5rem 1rem}
+.empty-state .ei{font-size:4rem;margin-bottom:1rem}
+/* TOAST */
+.toast-wrap{position:fixed;bottom:2rem;right:2rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem}
+.toast{background:var(--navy);color:#fff;padding:12px 20px;border-radius:9px;font-size:.9rem;font-weight:500;box-shadow:0 4px 16px rgba(0,0,0,.2);border-left:4px solid var(--gold);animation:slideIn .3s ease;display:flex;align-items:center;gap:8px}
+@keyframes slideIn{from{transform:translateX(120px);opacity:0}to{transform:translateX(0);opacity:1}}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar-custom">
+  <a class="brand" onclick="showPage('home')">🛍 AMAZON</a>
+  <div class="nav-search-wrap">
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="Search products..." oninput="handleSearch(this.value)" onfocus="showPage('products')">
+  </div>
+  <div class="nav-links">
+    <button class="nav-btn active" id="nb-home"     onclick="showPage('home')">Home</button>
+    <button class="nav-btn"        id="nb-products" onclick="showPage('products')">Products</button>
+    <button class="cart-btn"       onclick="showPage('cart')">
+      🛒 <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ==================== HOME ==================== -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-content">
+      <p class="hero-tag">🎉 New Season Arrivals</p>
+      <h1 class="hero-title">Shop Smart.<br>Live Better.</h1>
+      <p class="hero-sub">Discover thousands of products — from fashion to electronics. Fast delivery. Best prices. Made for India.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="showPage('products')">Shop Now →</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-blob"><span class="hero-emoji">🛍️</span></div>
+      <div class="stat-card sc1"><span>12K+</span><small>Products</small></div>
+      <div class="stat-card sc2"><span>4.8★</span><small>Rating</small></div>
+      <div class="stat-card sc3"><span>Free</span><small>Delivery</small></div>
+    </div>
+  </div>
+  <div class="section-wrap">
+    <div class="cats-row">
+      <div class="cat-chip" onclick="filterCat('Electronics')">⚡ Electronics</div>
+      <div class="cat-chip" onclick="filterCat('Fashion')">👔 Fashion</div>
+      <div class="cat-chip" onclick="filterCat('Books')">📚 Books</div>
+      <div class="cat-chip" onclick="filterCat('Home')">🏠 Home</div>
+    </div>
+    <h2 class="section-title">Featured Products</h2>
+    <p class="section-sub">Handpicked just for you</p>
+    <div class="products-grid" id="featuredGrid"></div>
+    <div style="text-align:center;margin-top:2rem">
+      <button class="btn-gold" onclick="showPage('products')">View All Products →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PRODUCTS ==================== -->
+<div class="page" id="page-products">
+  <div class="section-wrap">
+    <h2 class="section-title">All Products</h2>
+    <p class="section-sub" id="productCount">12 products found</p>
+    <div class="filters-row">
+      <div class="cat-filters" id="catFilters">
+        <button class="cfbtn active" onclick="setCategory(this,'All')">All</button>
+        <button class="cfbtn" onclick="setCategory(this,'Electronics')">Electronics</button>
+        <button class="cfbtn" onclick="setCategory(this,'Fashion')">Fashion</button>
+        <button class="cfbtn" onclick="setCategory(this,'Books')">Books</button>
+        <button class="cfbtn" onclick="setCategory(this,'Home')">Home</button>
+      </div>
+      <select class="sort-sel" onchange="setSort(this.value)">
+        <option value="default">Sort: Default</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="rating">Top Rated</option>
+      </select>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</div>
+
+<!-- ==================== CART ==================== -->
+<div class="page" id="page-cart">
+  <div class="section-wrap">
+    <h2 class="section-title">Your Cart</h2>
+    <p class="section-sub" id="cartSubtitle">0 items</p>
+    <div id="cartContent"></div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const PRODUCTS = [
+  {id:1,name:"Pro Gaming PC + Controller Bundle",desc:"High-performance gaming rig with RGB cooling, PS5-style wireless controller included.",price:89999,category:"Electronics",rating:4.8,image:"https://th.bing.com/th/id/OPAC.o5672b4ulFX3Iw474C474?w=592&h=550&o=5&dpr=1.3&pid=21.1"},
+  {id:2,name:"Wireless Noise-Cancelling Headphones",desc:"Premium over-ear headphones with 40hr battery life and active noise cancellation.",price:4999,category:"Electronics",rating:4.7,image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop"},
+  {id:3,name:"Men's Hooded Pullover Sweatshirt",desc:"Heavyweight fleece hoodie, perfect for winters. Available in multiple colours.",price:1299,category:"Fashion",rating:4.5,image:"https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?w=400&h=300&fit=crop"},
+  {id:4,name:"Men's Plaid Sherpa-Lined Jacket",desc:"Warm flannel shirt jacket with sherpa lining. Perfect outdoor layering piece.",price:2999,category:"Fashion",rating:4.6,image:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=300&fit=crop"},
+  {id:5,name:"Men's Outdoor Winter Parka",desc:"Heavy-duty fleece-lined parka with multiple pockets. Wind and water resistant.",price:3499,category:"Fashion",rating:4.4,image:"https://images.unsplash.com/photo-1547949003-9792a18a2601?w=400&h=300&fit=crop"},
+  {id:6,name:"Cotton Knit Zip Cardigan",desc:"Premium knitted zip-up cardigan for formal and casual occasions. Slim fit.",price:1899,category:"Fashion",rating:4.3,image:"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=300&fit=crop"},
+  {id:7,name:"Men's Fleece Track Pants (Pack of 3)",desc:"Ultra-soft fleece joggers in black, grey & charcoal. Elastic waist with pockets.",price:1599,category:"Fashion",rating:4.5,image:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&h=300&fit=crop"},
+  {id:8,name:"Lightweight Cotton Bathrobe",desc:"Shawl-collar knit robe with belt. Breathable and perfect for year-round use.",price:1199,category:"Fashion",rating:4.2,image:"https://image.hm.com/assets/hm/b3/d6/b3d6131615ef90b8c75654908f45deadcf411989.jpg?imwidth=2160"},
+  {id:9,name:"GPS Smart Tracker Card + Wallet",desc:"Slim Bluetooth tracker card with real-time GPS map. Works with Android & iOS.",price:2499,category:"Electronics",rating:4.6,image:"https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400&h=300&fit=crop"},
+  {id:10,name:"Give Me Peaceful — Book by Laksh Sharma",desc:"A journey through mindfulness and inner peace. Bestselling debut by Laksh Sharma.",price:299,category:"Books",rating:4.9,image:"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop"},
+  {id:11,name:"Family Matching Festive Pyjama Set",desc:"Festive Mickey-print matching PJ sets for the whole family. Soft & cozy cotton.",price:1799,category:"Fashion",rating:4.4,image:"https://images.unsplash.com/photo-1604176354204-9268737828e4?w=400&h=300&fit=crop"},
+  {id:12,name:"Holiday Gift Wrapping Bundle",desc:"Complete gift wrap kit with paper rolls, ribbons, scissors & bows. 20-piece set.",price:499,category:"Home",rating:4.3,image:"https://images.unsplash.com/photo-1512909006721-3d6018887383?w=400&h=300&fit=crop"}
+];
+
+// ─── STATE ─────────────────────────────────────────────────────────────────────
+let cart = [];       // array of {id, name, price, category, image, qty}
+let activeCategory = 'All';
+let activeSortBy   = 'default';
+let searchKeyword  = '';
+
+// ─── PAGE ROUTING ──────────────────────────────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const nb = document.getElementById('nb-' + name);
+  if (nb) nb.classList.add('active');
+  if (name === 'home')     renderFeatured();
+  if (name === 'products') renderProducts();
+  if (name === 'cart')     renderCart();
+  window.scrollTo(0, 0);
+}
+
+// ─── PRODUCT CARD HTML ─────────────────────────────────────────────────────────
+function productCardHTML(p) {
+  return `
+    <div class="product-card">
+      <div class="pimg-wrap">
+        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Product'">
+        <span class="pcat">${p.category}</span>
+      </div>
+      <div class="pinfo">
+        <h3 class="pname">${p.name}</h3>
+        <p class="pdesc">${p.desc}</p>
+        <div class="pfooter">
+          <span class="pprice">₹${p.price.toLocaleString('en-IN')}</span>
+          <span class="prating">${'★'.repeat(Math.floor(p.rating))} <span style="color:var(--gray);font-size:.8rem">${p.rating}</span></span>
+        </div>
+        <button class="btn-add" id="add-${p.id}" onclick="addToCart(${p.id})">Add to Cart</button>
+      </div>
+    </div>`;
+}
+
+// ─── RENDER ────────────────────────────────────────────────────────────────────
+function renderFeatured() {
+  document.getElementById('featuredGrid').innerHTML =
+    PRODUCTS.slice(0, 4).map(productCardHTML).join('');
+}
+
+function renderProducts() {
+  let list = [...PRODUCTS];
+  if (activeCategory !== 'All') list = list.filter(p => p.category === activeCategory);
+  if (searchKeyword) {
+    const s = searchKeyword.toLowerCase();
+    list = list.filter(p => p.name.toLowerCase().includes(s) || p.desc.toLowerCase().includes(s));
+  }
+  if (activeSortBy === 'price-asc')  list.sort((a,b) => a.price - b.price);
+  if (activeSortBy === 'price-desc') list.sort((a,b) => b.price - a.price);
+  if (activeSortBy === 'rating')     list.sort((a,b) => b.rating - a.rating);
+
+  document.getElementById('productCount').textContent = list.length + ' products found';
+  document.getElementById('productsGrid').innerHTML =
+    list.length ? list.map(productCardHTML).join('') :
+    `<div class="empty-state" style="grid-column:1/-1"><div class="ei">🔍</div><p>No products found for "${searchKeyword}"</p></div>`;
+}
+
+// ─── CART OPERATIONS ───────────────────────────────────────────────────────────
+function addToCart(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  const exists = cart.find(x => x.id === id);
+  if (exists) { exists.qty++; }
+  else { cart.push({...p, qty: 1}); }
+  updateCartBadge();
+  showToast('🛒 ' + p.name.substring(0, 30) + '... added to cart!');
+  const btn = document.getElementById('add-' + id);
+  if (btn) {
+    btn.textContent = '✓ Added!'; btn.classList.add('added');
+    setTimeout(() => { if(btn){btn.textContent='Add to Cart';btn.classList.remove('added');} }, 1400);
+  }
+}
+
+function updateCartBadge() {
+  const total = cart.reduce((s, i) => s + i.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  badge.textContent = total;
+  badge.style.display = total > 0 ? 'flex' : 'none';
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(x => x.id !== id);
+  updateCartBadge();
+  renderCart();
+}
+
+function removeItem(id) {
+  cart = cart.filter(x => x.id !== id);
+  updateCartBadge();
+  renderCart();
+}
+
+function renderCart() {
+  const count = cart.reduce((s,i)=>s+i.qty, 0);
+  document.getElementById('cartSubtitle').textContent = count + ' item' + (count!==1?'s':'') + ' in your cart';
+
+  if (cart.length === 0) {
+    document.getElementById('cartContent').innerHTML = `
+      <div class="empty-state">
+        <div class="ei">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p style="color:var(--gray);margin:.5rem 0 1.5rem">Add some products to get started!</p>
+        <button class="btn-gold" onclick="showPage('products')">Shop Now →</button>
+      </div>`;
+    return;
+  }
+
+  const subtotal = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+  const discount = Math.round(subtotal * 0.1);
+  const total    = subtotal - discount;
+
+  const itemsHTML = cart.map(item => `
+    <div class="cart-item">
+      <img class="cimg" src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80'">
+      <div class="cinfo">
+        <h4>${item.name}</h4>
+        <span class="ccat">${item.category}</span>
+        <p class="cprize">₹${item.price.toLocaleString('en-IN')}</p>
+      </div>
+      <div class="qty-ctrl">
+        <button onclick="changeQty(${item.id},-1)">−</button>
+        <span>${item.qty}</span>
+        <button onclick="changeQty(${item.id},1)">+</button>
+      </div>
+      <div class="ctotal">₹${(item.price*item.qty).toLocaleString('en-IN')}</div>
+      <button class="rm-btn" onclick="removeItem(${item.id})">✕</button>
+    </div>`).join('');
+
+  document.getElementById('cartContent').innerHTML = `
+    <div class="cart-layout">
+      <div class="cart-items">${itemsHTML}</div>
+      <div class="cart-summary">
+        <h3>Order Summary</h3>
+        <div class="srow"><span>Subtotal (${count} items)</span><span>₹${subtotal.toLocaleString('en-IN')}</span></div>
+        <div class="srow"><span>Delivery</span><span class="free">FREE</span></div>
+        <div class="srow"><span>Discount (10%)</span><span class="disc">− ₹${discount.toLocaleString('en-IN')}</span></div>
+        <hr class="sdiv">
+        <div class="srow total"><span>Total</span><span>₹${total.toLocaleString('en-IN')}</span></div>
+        <button class="btn-gold checkout-btn" onclick="showToast('✅ Order placed! Thank you.')">Proceed to Checkout →</button>
+        <button class="btn-outline" style="width:100%;margin-top:.75rem" onclick="showPage('products')">Continue Shopping</button>
+      </div>
+    </div>`;
+}
+
+// ─── FILTERS ───────────────────────────────────────────────────────────────────
+function setCategory(btn, cat) {
+  activeCategory = cat;
+  document.querySelectorAll('.cfbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+}
+function setSort(val) { activeSortBy = val; renderProducts(); }
+function handleSearch(val) { searchKeyword = val; renderProducts(); }
+function filterCat(cat) {
+  activeCategory = cat;
+  showPage('products');
+  document.querySelectorAll('.cfbtn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === cat);
+  });
+}
+
+// ─── FORM VALIDATION ───────────────────────────────────────────────────────────
+function setError(id, msg) {
+  const fg = document.getElementById('fg-' + id);
+  const em = document.getElementById('e-' + id);
+  if (msg) { fg.classList.add('err'); em.textContent = msg; }
+  else      { fg.classList.remove('err'); em.textContent = ''; }
+  return !!msg;
+}
+
+// ─── TOAST ─────────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast'; t.textContent = msg;
+  wrap.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────────
+renderFeatured();
+renderProducts();
+</script>
+</body>
+</html>
